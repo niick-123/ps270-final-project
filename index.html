@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["2024_spss.zip","data/GSS 2024 - Whats New R2.pdf","data/GSS 2024 Codebook R2.pdf","data/GSS 2024 Release Variables R2.pdf","data/GSS2024.sav","data/Release Notes 7224 R2.pdf","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1545,8 +1545,36 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to I am interested in exploring data related to the social status and demographic composition of supporters of the two major political parties in the United States.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>The data source I used to complete my Final Project is the General Social Survey (GSS) – a nationally representative survey of all adult Americans which assesses their views about politics, demographics and economics over time. My research question is: Is economic insecurity an indicator of the likelihood of being identified as conservative ideologically in the United States? Based upon economic anxiety and threat response theory I hypothesize that those who report experiencing, or believe they are experiencing economic insecurity, will have a greater tendency to identify themselves as conservative ideologically. A possible behavioral cause for this may be that economic uncertainty leads to a preference for social order, stability and traditional institutions; all characteristics typically associated with conservative ideologies. My key independent variable is economic insecurity which was measured through survey questions such as respondents’ reported level of satisfaction regarding their finances or whether or not respondents believed that the nation’s economic situation is improving or deteriorating. This allows for variation across each respondent thereby permitting regression analysis. My dependent variable is respondents’ ideological self-identification which is measured by respondents’ placement on the GSS liberal-conservative scale (which generally ranges from extremely liberal to extremely conservative). If support for my hypothesis is found in a regression model where high levels of economic insecurity are related to high (i.e. more conservative) placements on the ideology scale, then this will confirm my hypothesis. Conversely, if there is a significant relationship between economic insecurity and liberal ideological identity or if there is no statistically significant relationship between economic insecurity and ideological identity — either liberal or conservative — then this will disconfirm my hypothesis.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>gss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_spss.html'>read_sav</a></span><span class='op'>(</span><span class='st'>"data/GSS2024.sav"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>gss</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 6 × 813
+  fileversion year     id abany    abanyg   abdefect abdefectg abhlth 
+  &lt;dbl+lbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lb&gt; &lt;dbl+lb&gt; &lt;dbl+lb&gt; &lt;dbl+lbl&gt; &lt;dbl+l&gt;
+1 7224. [GSS… 2024      1 NA       NA       NA       NA        NA     
+2 7224. [GSS… 2024      2 NA       NA       NA       NA        NA     
+3 7224. [GSS… 2024      3  1 [yes]  1 [yes] NA        1 [yes]  NA     
+4 7224. [GSS… 2024      4  2 [no]  NA        2 [no]  NA         2 [no]
+5 7224. [GSS… 2024      5  2 [no]   2 [no]  NA        2 [no]   NA     
+6 7224. [GSS… 2024      6 NA       NA       NA       NA        NA     
+# ℹ 805 more variables: abhlthg &lt;dbl+lbl&gt;, abnomore &lt;dbl+lbl&gt;,
+#   abnomoreg &lt;dbl+lbl&gt;, abpoor &lt;dbl+lbl&gt;, abpoorg &lt;dbl+lbl&gt;,
+#   abrape &lt;dbl+lbl&gt;, abrapeg &lt;dbl+lbl&gt;, absingle &lt;dbl+lbl&gt;,
+#   absingleg &lt;dbl+lbl&gt;, acpttg &lt;dbl+lbl&gt;, adcoumed &lt;dbl+lbl&gt;,
+#   addoc &lt;dbl+lbl&gt;, adfam &lt;dbl+lbl&gt;, adoptus &lt;dbl+lbl&gt;,
+#   adpsy &lt;dbl+lbl&gt;, adtch &lt;dbl+lbl&gt;, adults &lt;dbl+lbl&gt;,
+#   adultsinhh &lt;dbl+lbl&gt;, adults_exp &lt;dbl+lbl&gt;, affrmact &lt;dbl+lbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
